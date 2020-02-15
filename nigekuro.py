@@ -22,7 +22,25 @@ class kuro():
             txt = font.render(tx, True, (255,0,0))
             screen.blit(txt,[self.rx-10,self.ry-17])
     
-
+class plyr():
+    def pl(self,evnts,kkk):
+        # イベント処理
+        for ev in evnts:
+            if ev.type == MOUSEBUTTONDOWN: 
+                btn = ev.button
+                mx, my = ev.pos
+                
+                #当たり判定
+                for i in range(10):
+                    #print("i=",i,"  mx=",mx,"  my=",my, "  kkk[i].rx=",kkk[i].rx,"  kkk[i].ry=",kkk[i].ry,)
+                    if  kkk[i].rx-50 < mx < kkk[i].rx+50  and  kkk[i].ry-50 < my < kkk[i].ry+50:
+                        print("atari")
+                        kkk[i].hp = 0
+                    else:
+                        print("hazure")
+            mx=0
+            my=0
+#-------------------------------------------------------------------------------
 def main():
     pygame.init()                                 # Pygameの初期化
     font = pygame.font.Font(None, 55)               # フォントの設定(55px)
@@ -32,35 +50,23 @@ def main():
     kkk=[kuro() for i in range(10)]
     mx=0
     my=0
-    
+    pl=plyr()
+
     while (1):
         screen.fill((255,255,255))  # 画面を白に
+        #
         for i in range(10):
             kkk[i].update() 
             kkk[i].draw(screen,font,i)
         pygame.display.update()     # 画面更新
 
-        # イベント処理
-        for event in pygame.event.get():#イベントキューからキーボードやマウスの動きを取得
-            if event.type == QUIT:      # 閉じるボタンが押されたら終了
+        evnts = pygame.event.get()  #イベントキューからキーボードやマウスの動きを取得
+        for ev in evnts:
+            if ev.type == QUIT:      # 閉じるボタンが押されたら終了
                 pygame.quit()          # Pygameの終了(ないと終われない)
                 sys.exit()             #終了（ないとエラーで終了することになる）
-                
-            elif event.type == MOUSEBUTTONDOWN: 
-                btn = event.button
-                mx, my = event.pos
-                
-                #当たり判定
-                for i in range(10):
-                    print("i=",i,"  mx=",mx,"  my=",my, "  kkk[i].rx=",kkk[i].rx,"  kkk[i].ry=",kkk[i].ry,)
-                    if  kkk[i].rx-50 < mx < kkk[i].rx+50  and  kkk[i].ry-50 < my < kkk[i].ry+50:
-                        print("atari")
-                        kkk[i].hp = 0
-                    else:
-                        print("hazure")
-                
-                mx=0
-                my=0
+        pl.pl(evnts,kkk)
+
 
 if __name__ == "__main__":
     main()
