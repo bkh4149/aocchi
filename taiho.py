@@ -8,6 +8,7 @@ def main():
     screen.fill((255,255,255))  # 画面を白に
     pygame.display.update()     # 画面更新
     gMap = pygame.image.load("sprite3.png").convert_alpha()   #マリオのマップチップ読み込み
+    sd_hit = pygame.mixer.Sound("hit.wav")
     #マップチップの座標用のベース
     basew = 48
     baseh = basew*2
@@ -68,5 +69,6 @@ def main():
                     vy = -15
                     vx = 15
                     ct=0
+                    sd_hit.play()
 if __name__ == "__main__":
     main()
