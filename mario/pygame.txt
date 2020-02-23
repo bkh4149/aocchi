@@ -1,0 +1,26 @@
+Surface.blit
+画像を他の画像上に描写します。pygame.png
+Surface.blit(source, dest, area=None, special_flags = 0): return Rect
+Surface上にソース画像を描写します。dest引数を使用して描写位置を設定することができます。
+dest値はソース画像の左上隅が置かれる(x座標,y座標)を表します。
+dest値の代わりに、画像を描写する四角範囲(x座標,y座標,幅,高さ)のrect値を引数として渡すこともできます。
+rect値として設定した画像描写範囲の大きさを、ソース画像より広く設定してしまったり逆に狭く設定してしまった場合でも、
+画像は正常に描写されます。
+
+dest値に加えて、area値にも同様の四角範囲を設定することができます。
+このarea値は、ソース画像の中から一部分だけを切り取って描写したい時に、その切り取る描写範囲として設定します。
+
+オプションで設定できるspecial_flags引数は、pygameのver1.8.0では 
+BLEND_ADD, BLEND_SUB, BLEND_MULT, BLEND_MIN, BLEND_MAXが追加され、
+ver1.8.1では BLEND_RGBA_ADD, BLEND_RGBA_SUB, BLEND_RGBA_MULT, BLEND_RGBA_MIN, BLEND_RGBA_MAX BLEND_RGB_ADD, 
+BLEND_RGB_SUB, BLEND_RGB_MULT, BLEND_RGB_MIN, BLEND_RGB_MAXが追加され、
+将来的には他にも様々なspecial_flags引数を追加する予定です。
+
+この処理の影響を受ける範囲がrect型の戻り値として返されます。Surfaceの枠外や描写可能領域外は、戻り値の範囲から除外されます。
+
+8bitのSurfaceに画像を描写する場合。ピクセルの透過処理は適用されません。
+
+special_flags引数はpygameのver1.8で新規に実装されました。
+
+透過色やblanket alphaを設定しているSurfaceでは、Surface自身にSurfaceの画像を描写する場合と、
+他のSurfaceにSurfaceの画像を描写する場合とでは表示される色がやや異なってきます。
